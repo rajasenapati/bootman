@@ -1,2 +1,2 @@
 # bootman
-byteman and spring boot collocated in same JVM, with byteman functionality exposed via REST endpoint
+byteman and spring boot colocated in same JVM, with byteman functionality exposed via REST endpoint
