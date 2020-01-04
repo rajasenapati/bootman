@@ -8,28 +8,39 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.byteman</groupId>
+    <groupId>org.javaprofile</groupId>
     <artifactId>bootman</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>bootman</name>
     <description>Byteman collocated with Spring Boot</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <java.home>/home/raja/.sdkman/candidates/java/current</java.home>
-<!--        <java.home>${env.JAVA_HOME}</java.home>-->
-    </properties>
+    <profiles>
+        <profile>
+            <id>java-8</id>
+            <activation>
+                <jdk>8</jdk>
+            </activation>
+            <!-- add Java 8 specific configuration -->
+            <properties>
+                <java.version>1.8</java.version>
+                <java.home>/home/raja/.sdkman/candidates/java/current</java.home>
+                <!--        <java.home>${env.JAVA_HOME}</java.home>-->
+            </properties>
+            <dependencies>
+            <!-- In JDK 1.8 or below, the java agent needs tools.jar in order to attach to the VM. -->
+            <dependency>
+                <groupId>jdk.tools</groupId>
+                <artifactId>jdk.tools</artifactId>
+                <scope>system</scope>
+                <version>1.8</version>
+                <systemPath>${java.home}/lib/tools.jar</systemPath>
+            </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
 
     <dependencies>
-        <!-- In JDK 1.8 or below, the java agent needs tools.jar in order to attach to the VM. -->
-        <dependency>
-            <groupId>jdk.tools</groupId>
-            <artifactId>jdk.tools</artifactId>
-            <scope>system</scope>
-            <version>1.8</version>
-            <systemPath>${java.home}/lib/tools.jar</systemPath>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -111,6 +122,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- The following JVM argument will be ignored when using Java 8 environment, but will be picked up in Java 9 environment.
+                      This is required to allow byteman agent to attach to the same VM.
+                     -->
+                    <jvmArguments>
+                        -Djdk.attach.allowAttachSelf=true
+                    </jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

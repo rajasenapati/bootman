@@ -1,4 +1,4 @@
-package org.byteman.bootman.controller;
+package org.javaprofile.bootman.controller;
 
 
 import io.swagger.annotations.Api;

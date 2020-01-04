@@ -1,4 +1,4 @@
-package org.byteman.bootman.controller;
+package org.javaprofile.bootman.controller;
 
 import com.diffplug.common.base.Errors;
 import com.google.common.collect.ImmutableList;
