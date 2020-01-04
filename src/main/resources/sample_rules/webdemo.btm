@@ -1,0 +1,29 @@
+RULE trace HelloController entry
+CLASS HelloController
+METHOD sayHello 
+AT ENTRY
+BIND myInstance:HelloController = $0; 
+IF true
+DO HelloController.logger.info("entering sayHello --> " + myInstance.getClass().toGenericString())
+ENDRULE
+ 
+
+RULE trace exit 
+CLASS HelloController
+METHOD sayHello
+AT EXIT
+IF true
+DO HelloController.logger.info("exiting sayHello\n")
+ENDRULE
+
+
+RULE modify values
+CLASS HelloController
+METHOD sayHello
+AFTER WRITE $message
+IF true
+DO HelloController.logger.info("controller parameter as captured by byteman -->" + $name);
+   HelloController.logger.info("message before modification by byteman -->" + $message);
+   $message = "Byteman: " + $message;
+   HelloController.logger.info("message after modification by byteman -->" + $message);
+ENDRULE
