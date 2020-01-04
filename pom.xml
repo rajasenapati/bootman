@@ -23,8 +23,7 @@
             <!-- add Java 8 specific configuration -->
             <properties>
                 <java.version>1.8</java.version>
-                <java.home>/home/raja/.sdkman/candidates/java/current</java.home>
-                <!--        <java.home>${env.JAVA_HOME}</java.home>-->
+                <java.home>${env.JAVA_HOME}</java.home>
             </properties>
             <dependencies>
             <!-- In JDK 1.8 or below, the java agent needs tools.jar in order to attach to the VM. -->
