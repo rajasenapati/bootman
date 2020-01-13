@@ -21,10 +21,6 @@
                 <jdk>8</jdk>
             </activation>
             <!-- add Java 8 specific configuration -->
-            <properties>
-                <java.version>1.8</java.version>
-                <java.home>${env.JAVA_HOME}</java.home>
-            </properties>
             <dependencies>
             <!-- In JDK 1.8 or below, the java agent needs tools.jar in order to attach to the VM. -->
             <dependency>
@@ -128,7 +124,49 @@
                     <jvmArguments>
                         -Djdk.attach.allowAttachSelf=true
                     </jvmArguments>
+                    <!-- This will copy tools.jar from systemPath to the executable jar file. This is not recommended and
+                    should be attempted as a last resort, if bootman is going to run in a JRE 8 environment without any JDK -->
+                    <!-- <includeSystemScope>true</includeSystemScope>-->
+
+                    <!-- the following byteman jars need to be extracted from the executable jar file to the classpath/file system
+                    during application boot-up. This is needed by byteman framework to attach as a agent to running app instance.
+                    However, you dont need to unpack following jars, if atleast one of the following conditions is true:
+                    1. if you are running the app in its expanded form and not as a executable fat-jar
+                    2. if you have setup BYTEMAN_HOME environment variable which points to a byteman installation on the file system
+                    -->
+                    <requiresUnpack>
+                        <dependency>
+                            <groupId>org.jboss.byteman</groupId>
+                            <artifactId>byteman</artifactId>
+                            <scope>compile</scope>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.jboss.byteman</groupId>
+                            <artifactId>byteman-install</artifactId>
+                            <scope>compile</scope>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.jboss.byteman</groupId>
+                            <artifactId>byteman-sample</artifactId>
+                        </dependency>
+
+                        <dependency>
+                            <groupId>org.jboss.byteman</groupId>
+                            <artifactId>byteman-submit</artifactId>
+                        </dependency>
+                    </requiresUnpack>
+                    <!-- This is needed by PropertiesLauncher -->
+                    <layout>ZIP</layout>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

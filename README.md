@@ -17,12 +17,25 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
     - git to clone the bootman codebase locally
 2. Go to your favorite terminal and clone the bootman repository inside a local folder
     ```git clone https://github.com/rajasenapati/bootman.git```
-3. Build and run bootman
+3. Build and run bootman.
+   bootman can be executed as a standalone springboot based executable fat jar. It can also be executed in its expanded form. 
     ```
+    # approach 1: run bootman in expanded form (works for java 8 and above)
+    cd bootman
+    ./mvnw clean
+    ./mvnw spring-boot:run
+   
+    # approach 2: run bootman as a spring boot executable fat jar (for java 8)
     cd bootman
     ./mvnw clean
     ./mvnw install
-    ./mvnw spring-boot:run
+    java -Dloader.path=$JAVA_HOME/lib/tools.jar -jar target/bootman-0.0.1-SNAPSHOT.jar
+
+    # approach 3: run bootman as a spring boot executable fat jar (for java version greater than 8)
+    cd bootman
+    ./mvnw clean
+    ./mvnw install
+    java -Dloader.path=$JAVA_HOME/lib/tools.jar -jar target/bootman-0.0.1-SNAPSHOT.jar   
     ```
 4. This will run the bootman application server on port 8080. You can terminate the server instance anytime by pressing CTRL+C in the same terminal or by killing it by its pid from another terminal.
 5. Open the [swagger page](http://localhost:8080/swagger-ui.html) in your favorite browser window. 
