@@ -13,9 +13,10 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
 ## How to Start
 
 1. Prerequisities
-    - A Java runtime Environment -> If you plan to run bootman on java 8, you should have a JDK and not a JRE. The underlying byteman framework depends on tools.jar to attach its agent to the JVM. For Java 9 and above, JRE is sufficient as the necessary agent plumbing code is present inside the JRE. However, for java 9 and above, you need to set this VM property to allow the agent to attach itself to the same VM: `-Djdk.attach.allowAttachSelf=true` 
+    - A Java runtime Environment -> If you plan to run bootman on java 8, you should have a JDK and not a JRE. The underlying byteman framework depends on tools.jar to attach its agent to the JVM. For Java 9 and above, JRE is sufficient as the necessary agent plumbing code is present inside the JRE. However, for java 9 and above, you need to set this VM property to allow the agent to attach itself to the same VM:\
+    `-Djdk.attach.allowAttachSelf=true` 
     - git to clone the bootman codebase locally
-2. Go to your favorite terminal and clone the bootman repository inside a local folder
+2. Go to your favorite terminal and clone the bootman repository inside a local folder\
     ```git clone https://github.com/rajasenapati/bootman.git```
 3. Build and run bootman.
    bootman can be executed as a standalone springboot based executable fat jar. It can also be executed in its expanded form. 
@@ -31,7 +32,7 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
     ./mvnw install
     java -Dloader.path=$JAVA_HOME/lib/tools.jar -jar target/bootman-0.0.1-SNAPSHOT.jar
 
-    # approach 3: run bootman as a spring boot executable fat jar (for java version greater than 8)
+    # approach 3: run bootman as a spring boot executable fat jar (for java 9 and above)
     cd bootman
     ./mvnw clean
     ./mvnw install
