@@ -35,7 +35,7 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
     cd bootman
     ./mvnw clean
     ./mvnw install
-    java -Dloader.path=$JAVA_HOME/lib/tools.jar -jar target/bootman-0.0.1-SNAPSHOT.jar   
+    java -Djdk.attach.allowAttachSelf=true -jar target/bootman-0.0.1-SNAPSHOT.jar   
     ```
 4. This will run the bootman application server on port 8080. You can terminate the server instance anytime by pressing CTRL+C in the same terminal or by killing it by its pid from another terminal.
 5. Open the [swagger page](http://localhost:8080/swagger-ui.html) in your favorite browser window. 
