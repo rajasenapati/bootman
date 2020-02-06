@@ -10,6 +10,8 @@
 
 Spring Boot makes it easy to create stand-alone, production-grade Spring based Java Applications that you can "just run". Byteman is a tool which injects Java code into your running application without the need for you to recompile, repackage or even redeploy your application. bootman combines these two so that you can create production grade spring applications and monitor/modify run time behavior on the fly. 
 
+[Here](https://www.slideshare.net/RajaSenapati/bootman-an-approach-to-inject-behavior-at-runtime-in-spring-boot-apps) is a presentation with more details on bootman.
+
 ## How to Start
 
 1. Prerequisities
