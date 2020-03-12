@@ -74,7 +74,7 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
    ``` 
    Notice that the application does not log the parameter `name` it receives from the client request. Imagine you are in production and you have to troubleshoot the above code. I do not know about you. But if it were me, I would definitely like to see the `name` parameter this method receives from the client code without changing the code, rebuilding the app and redeploying it. Also I might want to use a different logic to calculate the variable `message` which is ultimately sent back to the calling client. With bootman, you can do that. Lets see how this works.
 
- 7. First activate the agent  
+ 7. First activate the agent. This will load and attach the byteman jar as an agent in the self hosted JVM and starts the agent listener on port 9091. This port is configurable in the Controller code itself. Byteman agent looks for any byteman command like adding/deleting rules on this port. bootman takes care of abstracting out these complexities for you.   
     ![activate agent](https://github.com/rajasenapati/bootman/blob/media/activateAgent.png?raw=true)
     While activating the agent, you can optionally pass [additional properties/Environment Settings](https://downloads.jboss.org/byteman/4.0.9/byteman-programmers-guide.html#environment-settings) to the agent. By default, we pass `org.jboss.byteman.verbose` property to enable verbose logging. With verbose mode enabled, you will see following entry in the application log:
     ```
@@ -139,10 +139,20 @@ Spring Boot makes it easy to create stand-alone, production-grade Spring based J
     ```
     This is due to the installed rules which injected the new behavior. [Here](https://downloads.jboss.org/byteman/4.0.9/byteman-programmers-guide.html) you can get to know more about byteman capabilities. 
 
-11. Time to cleanup now. Delete the rules previously installed.
+11. Time to cleanup now. Delete all the rules previously installed. Alternatively you can delete selective rules instead of deleting all rules. Check the API in Step# 13.
     ![delete all Rules](https://github.com/rajasenapati/bootman/blob/media/deleteAllRules.png?raw=true)
 
 12. And verify we are back to square one.
     ![application code post rule cleanup](https://github.com/rajasenapati/bootman/blob/media/greet_after_rule_deletions.png?raw=true)
 
-13. And that's it. Feel free to modify the codebase to suit your needs.
+13. As an alternative to Step# 11, you can delete selective rules instead of deleting all rules. Just specify the rules you want deleted in following API. You can specify the entire rule text or 
+    just the rule name of the rules to be deleted. 
+    ![delete selective Rules](https://github.com/rajasenapati/bootman/blob/media/deleteSelectiveRules.png?raw=true)
+
+14. Even after you have deleted all the rules, the byteman agent listener keeps on running and listening on the preconfigured port 9091(unless it is changed in the byteman controller code). 
+    Its okay to keep the agent listener running as it does not add any significant performance overhead. However, if you decide to terminate the byteman agent listener, then trigger following API. 
+    This will also cleanup all installed rules from the JVM, if they have not been deleted earlier and bring it to a pristine state. 
+    You can always activate the agent by invoking activateAgent API later.   
+    ![terminate agent](https://github.com/rajasenapati/bootman/blob/media/terminateAgent.png?raw=true)
+        
+15. And that's it. Feel free to modify the codebase to suit your needs.
