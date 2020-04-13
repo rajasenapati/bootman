@@ -94,10 +94,46 @@ can create production grade spring applications, evaluate code and monitor/modif
    ![developer console controller](https://github.com/rajasenapati/bootman/blob/media/developer_console_controller.png?raw=true) 
    
    Here's a REPL in action:
-    ![REPL in Action](https://github.com/rajasenapati/bootman/blob/media/complex_example_for_Groovy_and_Javascript.gif?raw=true) 
+   
+   ![REPL in Action](https://github.com/rajasenapati/bootman/blob/media/complex_example_for_Groovy_and_Javascript.gif?raw=true) 
     
-    Grab the sample code snippets from [here](https://github.com/rajasenapati/bootman/blob/master/src/main/resources/sample/code_snippets/dev_console_examples.txt) 
-    and paste it in above swagger call. 
+    Grab the sample code snippets from following section and paste it in above swagger call. Select the language dialect based on which code
+    you are executing.
+```javascript
+    // execute the sayHello() public method of helloController spring bean. This works in both javascript and Groovy
+    externalName = helloController.sayHello('John Ext Doe');
+    
+    // execute the sayHelloInternal() private method of helloController spring bean using Groovy
+    internalName = helloController.sayHelloInternal('John Int Doe');
+    
+    //Groovy scripting supports execution of private methods as well without using reflection.
+    
+    // execute the sayHelloInternal() private method of helloController spring bean using javascript. This requires reflection.
+    var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
+    method.setAccessible(true);
+    internalName = method.invoke(helloController, 'John Int Doe');
+    
+    //We don't have to restrict it to single code liners. You can execute any code block as long as it is supported by Groovy/javascript dialect.
+    //The following returns a map of two method calls, one private and one public from javascript
+    var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
+    method.setAccessible(true);
+    var internalName = method.invoke(helloController, 'John Int Doe');
+    var externalName = helloController.sayHello('John Ext Doe');
+    var nameMap = {
+      internalName : internalName,
+      externalName : externalName
+     }
+    nameMap;
+    
+    
+    //The same functionality as above, called from Groovy. Notice how simple it is compared to javascript based invocation.
+    internalName = helloController.sayHelloInternal('John Int Doe');
+    externalName = helloController.sayHello('John Ext Doe');
+    [
+      'internalName' : internalName,
+      'externalName' : externalName
+    ]
+```
     
     As you can see, the Groovy dialect offers more powerful constructs (like executing private methods/accessing private fields).
     Javascript dialect needs to use reflection API to access private methods/fields. 
