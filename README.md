@@ -89,31 +89,32 @@ can create production grade spring applications, evaluate code and monitor/modif
         }
     }
     ``` 
-2. Now open Developer Console Controller section in the swagger page and click on execute endpoint. The code will be executed remotely, and the response
-   will appear in the swagger response section.
+2. Now open Developer Console Controller section in the swagger page and click on execute endpoint. This is the REPL endpoint. It comes 
+   with an option to select the Language Dialect and the code snippet to execute remotely. The result of the code execution will appear 
+   in the swagger response section.
    ![developer console controller](https://github.com/rajasenapati/bootman/blob/media/developer_console_controller.png?raw=true) 
    
-   Here's a REPL in action:
+   Here's a sample REPL in action:
    
    ![REPL in Action](https://github.com/rajasenapati/bootman/blob/media/complex_example_for_Groovy_and_Javascript.gif?raw=true) 
     
-    Grab the sample code snippets from following section and paste it in above swagger call. Select the language dialect based on which code
-    you are executing.
+    Grab the sample code snippets from following section and paste it in above swagger call. Select either Groovy/Javascript 
+    language dialect based on which code you are executing.
 ```javascript
-    // STEP 1: execute the sayHello() public method of helloController spring bean. This works in both javascript and Groovy
+    // RUN 1: execute the sayHello() public method of helloController spring bean. This works in both javascript and Groovy
     externalName = helloController.sayHello('John Ext Doe');
     
-    // STEP 2: execute the sayHelloInternal() private method of helloController spring bean using Groovy
+    // RUN 2: execute the sayHelloInternal() private method of helloController spring bean using Groovy
     internalName = helloController.sayHelloInternal('John Int Doe');
     
     //Groovy scripting supports execution of private methods as well without using reflection.
     
-    // STEP 3: execute the sayHelloInternal() private method of helloController spring bean using javascript. This requires reflection.
+    // RUN 3: execute the sayHelloInternal() private method of helloController spring bean using javascript. This requires reflection.
     var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
     method.setAccessible(true);
     internalName = method.invoke(helloController, 'John Int Doe');
     
-    //STEP 4: We don't have to restrict it to single code liners. You can execute any code block as long as it is supported by Groovy/javascript dialect.
+    // RUN 4: We don't have to restrict it to single code liners. You can execute any code block as long as it is supported by Groovy/javascript dialect.
     //The following returns a map of two method calls, one private and one public from javascript
     var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
     method.setAccessible(true);
@@ -126,7 +127,7 @@ can create production grade spring applications, evaluate code and monitor/modif
     nameMap;
     
     
-    //STEP 5: The same functionality as above, called from Groovy. Notice how simple it is compared to javascript based invocation.
+    // RUN 5: The same functionality as above, called from Groovy. Notice how simple it is compared to javascript based invocation.
     internalName = helloController.sayHelloInternal('John Int Doe');
     externalName = helloController.sayHello('John Ext Doe');
     [
