@@ -22,4 +22,11 @@ public class HelloController {
         String message = "hello " + name;
         return message;
     }
+
+
+    private String sayHelloInternal(String name) {
+        logger.info("just a private method. Added here to demonstrate call from dev console controller");
+        String message = "howdy " + name;
+        return message;
+    }
 }
