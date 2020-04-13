@@ -94,7 +94,8 @@ can create production grade spring applications, evaluate code and monitor/modif
    ![developer console controller](https://github.com/rajasenapati/bootman/blob/media/developer_console_controller.png?raw=true) 
    
    Here's a REPL in action:
-    ![REPL in Action](https://github.com/rajasenapati/bootman/blob/media/complex_example_for_Groovy_and_Javascript.gif?raw=true) 
+   
+   ![REPL in Action](https://github.com/rajasenapati/bootman/blob/media/complex_example_for_Groovy_and_Javascript.gif?raw=true) 
     
     Grab the sample code snippets from [here](https://github.com/rajasenapati/bootman/blob/master/src/main/resources/sample/code_snippets/dev_console_examples.txt) 
     and paste it in above swagger call. 
