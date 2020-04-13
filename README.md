@@ -63,7 +63,7 @@ can create production grade spring applications, evaluate code and monitor/modif
 1. Run some Code snippets from swagger endpoint using javascript/groovy dialect
 2. Modify Application behavior by injecting some code
 
-#### Option 1: Run some Code snippets like REPL using Dev Console Controller:
+### Option 1: Run some Code snippets like REPL using Dev Console Controller:
 1.  Let's inspect the following sample class HelloController. It comes with one public method called  sayHello() and a private method called sayHelloInternal(). 
     This class is registered in Spring registry as helloContainer bean.
     ``` java
@@ -100,20 +100,20 @@ can create production grade spring applications, evaluate code and monitor/modif
     Grab the sample code snippets from following section and paste it in above swagger call. Select the language dialect based on which code
     you are executing.
 ```javascript
-    // execute the sayHello() public method of helloController spring bean. This works in both javascript and Groovy
+    // STEP 1: execute the sayHello() public method of helloController spring bean. This works in both javascript and Groovy
     externalName = helloController.sayHello('John Ext Doe');
     
-    // execute the sayHelloInternal() private method of helloController spring bean using Groovy
+    // STEP 2: execute the sayHelloInternal() private method of helloController spring bean using Groovy
     internalName = helloController.sayHelloInternal('John Int Doe');
     
     //Groovy scripting supports execution of private methods as well without using reflection.
     
-    // execute the sayHelloInternal() private method of helloController spring bean using javascript. This requires reflection.
+    // STEP 3: execute the sayHelloInternal() private method of helloController spring bean using javascript. This requires reflection.
     var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
     method.setAccessible(true);
     internalName = method.invoke(helloController, 'John Int Doe');
     
-    //We don't have to restrict it to single code liners. You can execute any code block as long as it is supported by Groovy/javascript dialect.
+    //STEP 4: We don't have to restrict it to single code liners. You can execute any code block as long as it is supported by Groovy/javascript dialect.
     //The following returns a map of two method calls, one private and one public from javascript
     var method = helloController.class.getDeclaredMethod("sayHelloInternal", java.lang.String.class);
     method.setAccessible(true);
@@ -126,19 +126,20 @@ can create production grade spring applications, evaluate code and monitor/modif
     nameMap;
     
     
-    //The same functionality as above, called from Groovy. Notice how simple it is compared to javascript based invocation.
+    //STEP 5: The same functionality as above, called from Groovy. Notice how simple it is compared to javascript based invocation.
     internalName = helloController.sayHelloInternal('John Int Doe');
     externalName = helloController.sayHello('John Ext Doe');
     [
       'internalName' : internalName,
       'externalName' : externalName
     ]
+
+    //As you can see, the Groovy dialect offers more powerful constructs (like executing private methods/accessing private fields).
+    //Javascript dialect needs to use reflection API to access private methods/fields. 
+
 ```
     
-    As you can see, the Groovy dialect offers more powerful constructs (like executing private methods/accessing private fields).
-    Javascript dialect needs to use reflection API to access private methods/fields. 
-    
-#### Option 2: Modify Code at the Runtime using Byteman Controller:
+### Option 2: Modify Code at the Runtime using Byteman Controller:
 1. Run the sample endpoint first. You will see an output like this:
     ![uninstrumented application code](https://github.com/rajasenapati/bootman/blob/media/greet_before_instrument.png?raw=true) 
 
