@@ -6,7 +6,7 @@ bootman gives you a starter spring boot app with following abilities:
   New [JSR 223](https://jcp.org/en/jsr/detail?id=223) compliant language dialects can be easily added to bootman. REPL can access any Spring bean or Java class, including their public and private methods and fields
 * Modifies existing behavior by injecting Java code via swagger endpoint without recompiling or restarting the running JVM    
      
-The name bootman223 comes from [JSR 223](https://jcp.org/en/jsr/detail?id=223) compliant scripting engines, [byteman](https://byteman.jboss.org/) and [spring boot](https://spring.io/projects/spring-boot) colocated 
+The name bootman comes from [byteman](https://byteman.jboss.org/) and [spring boot](https://spring.io/projects/spring-boot) colocated 
 in same JVM, with byteman and scripting functionality exposed via REST endpoint.
 
 `bootman =  "spring boot" + "byteman";`
