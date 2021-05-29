@@ -1,7 +1,7 @@
-# bootman223 (aka bootman)
+# bootman and DevConsole
 
 ## TLDR
-bootman223 gives you a starter spring boot app with following abilities:
+bootman gives you a starter spring boot app with following abilities:
 * Supports [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) feature as a Swagger endpoint to execute any code snippet within the JVM using javascript and groovy dialect. 
   New [JSR 223](https://jcp.org/en/jsr/detail?id=223) compliant language dialects can be easily added to bootman. REPL can access any Spring bean or Java class, including their public and private methods and fields
 * Modifies existing behavior by injecting Java code via swagger endpoint without recompiling or restarting the running JVM    
@@ -9,7 +9,8 @@ bootman223 gives you a starter spring boot app with following abilities:
 The name bootman223 comes from [JSR 223](https://jcp.org/en/jsr/detail?id=223) compliant scripting engines, [byteman](https://byteman.jboss.org/) and [spring boot](https://spring.io/projects/spring-boot) colocated 
 in same JVM, with byteman and scripting functionality exposed via REST endpoint.
 
-`bootman223 =  "spring boot" + "byteman" + "JSR 223";`
+`bootman =  "spring boot" + "byteman";`
+`DevConsole =  "spring boot" + "JSR 223";`
 
 ## Context
 
